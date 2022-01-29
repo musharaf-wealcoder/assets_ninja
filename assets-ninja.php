@@ -21,6 +21,7 @@ class Assets_ninja{
     $this->version = time();
     add_action('plugin_loaded', array($this,'assets_textdomain_loade'));
     add_action('wp_enqueue_scripts', array($this, 'assets_ninja_assets_enqueue'));
+    add_action('admin_enqueue_scripts', array($this, 'assets_ninja_assets_enqueue'));
   }
 
   public function assets_textdomain_loade()
@@ -30,13 +31,30 @@ class Assets_ninja{
 
   public function assets_ninja_assets_enqueue()
   {
-    wp_enqueue_script('assets_ninja_main_js', ASSETS_DIR.'admin/js/main.js', array('jquery'), $this->version, true);
+    wp_enqueue_script('assets_ninja_main_js', ASSETS_DIR.'admin/js/main.js', array('jquery','assets_ninja_another_js'), $this->version, true);
+    wp_enqueue_script('assets_ninja_another_js', ASSETS_DIR.'admin/js/another.js', array('jquery'), $this->version, true);
+    
+    wp_enqueue_script('public_main_js', ASSETS_DIR.'public/js/main.js', array('jquery'), $this->version, true);
+  
+  
+    $user_data = array(
+        'name' => 'musharaf',
+        'url' => 'musharaf.com'
+    );
+
+
+    wp_localize_script('assets_ninja_another_js', 'user_information', $user_data);
+  
   }
 
+
+  
 
 }
 
  new Assets_ninja;
+
+
 
 
 
