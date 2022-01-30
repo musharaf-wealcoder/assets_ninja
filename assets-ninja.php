@@ -58,8 +58,6 @@ class Assets_ninja{
   }
 
 
-  
-
 }
 
  new Assets_ninja;
